@@ -1,0 +1,47 @@
+## Summary
+
+Senior Full Stack Engineer with 10+ years of experience building scalable, high-performance web applications across retail, fintech, and design tech industries. Deep expertise in **React**, **C#**, and **ASP.NET Core**, with a strong track record of delivering end-to-end solutions from database architecture to responsive UI. Passionate about clean code, developer experience, and leveraging modern AI tooling to accelerate delivery and quality.
+
+## Exp1
+
+Spearheaded full stack development on an AI-powered product recommendation and inventory intelligence platform, collaborating cross-functionally to modernize legacy workflows and improve internal tooling at scale.
+
+- Architected a scalable **React** frontend with **TypeScript** and **Redux Toolkit**, significantly improving state management consistency and component reusability across the platform.
+- Built and maintained robust **ASP.NET Core** Web API services integrated with **Azure SQL Database** and **Azure Cosmos DB** to support high-throughput retail data pipelines.
+- Deployed and managed microservices on **Azure Kubernetes Service (AKS)** and **Azure Functions**, streamlining containerized workloads and significantly reducing infrastructure overhead.
+- Established a **GitHub Actions** CI/CD pipeline with automated testing gates, containerizing services via **Docker** and ensuring consistent deployments across staging and production environments.
+- Integrated **Azure Service Bus** for event-driven communication between microservices, decoupling AI inference jobs from the core transactional system to boost resilience.
+- Adopted **Cursor AI** as a primary coding assistant throughout daily development, significantly accelerating feature delivery, code review cycles, and boilerplate generation across the stack.
+- Instrumented services with **Prometheus** and **Grafana** dashboards to provide real-time observability into API latency, error rates, and resource utilization across the platform.
+
+## Exp2
+
+Contributed to a customer engagement and document processing platform for financial services clients, building reliable backend services and intuitive front-end interfaces to handle sensitive data workflows at scale.
+
+- Designed and optimized complex queries and stored procedures in **PostgreSQL**, significantly reducing report generation time for high-volume customer data pipelines.
+- Developed reusable **React** component libraries with **React Hook Form** and **Material UI**, substantially cutting down UI development time across multiple client-facing portals.
+- Built RESTful APIs using **ASP.NET Core** and **Entity Framework Core**, enabling seamless data exchange between the frontend and relational backend systems.
+- Implemented a **RabbitMQ**-based messaging layer to handle asynchronous document processing jobs, significantly improving throughput and decoupling critical workflow stages.
+- Wrote comprehensive unit and integration tests using **xUnit** and **Moq**, maintaining high code coverage and catching regressions early across backend service layers.
+- Containerized applications with **Docker** and configured **Jenkins** pipelines for automated builds and deployments, standardizing the release process across multiple environments.
+- Collaborated on migrating legacy on-premise services to **AWS EC2** and **AWS Lambda**, significantly reducing operational costs and improving deployment flexibility for backend workloads.
+
+## Exp3
+
+Worked on the core editor and collaboration features of a fast-growing design platform, focusing on performance-critical React components and building the foundation for real-time multi-user experiences.
+
+- Delivered highly interactive **React** and **JavaScript (ES6+)** UI components for the canvas editor, significantly enhancing rendering performance and responsiveness across devices.
+- Integrated **AWS RDS (PostgreSQL)** as the relational data store for user asset metadata, working closely with backend teams to design efficient schema structures supporting rapid feature growth.
+- Contributed to a **GraphQL** API layer consumed by **React** clients, streamlining data fetching patterns and substantially reducing over-fetching on asset-heavy editor views.
+- Implemented end-to-end and snapshot testing suites using **Jest** and **Cypress**, significantly increasing confidence in UI regressions during a period of rapid product iteration.
+- Partnered with backend engineers to integrate **AWS SQS** for queuing asynchronous export and rendering jobs, improving reliability of background processing for design file generation.
+- Set up **Datadog** monitoring and alerting on key frontend performance metrics, providing the team with meaningful observability into real-user experience and error trends.
+- Participated in migrating build tooling to **Webpack** with **Babel**, alongside adopting **GitLab CI** for automated linting, testing, and deployment workflows across the frontend codebase.
+
+## Skills
+
+**Languages:** C#, HTML, CSS, SCSS, JavaScript, ES6, TypeScript, Python, SQL, JSON
+**Frontend:** React, React Native, Next.js, Bootstrap, Tailwind CSS, MUI, JQuery, MapBox, Chart.js, D3.js, React Query, React Hooks, Redux, Zustand, Storybook
+**Backend:** .Net, Windows Forms, ADO.NET, Entity Framework, Dapper, Node.js, Express, MSSQL, PostgreSQL, MongoDB, Snowflake, Kafka, RabbitMQ, Redis, GraphQL, gRPC, WebSockets
+**Testing & Building Tools:** NUnit, xUnit, Moq, Jest, Cypress, Selenium, Playwright, Postman, Swagger, ESLint, Vite, Webpack, Terraform
+**Cloud & DevOps:** Git, AWS, Azure, GCP, Docker, Kubernetes, CI/CD, GitHub Actions, Jenkins, Vercel, Heroku
