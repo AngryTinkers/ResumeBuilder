@@ -12,7 +12,7 @@ from docx.text.paragraph import Paragraph
 RESUME_DIR = Path(__file__).resolve().parent / "resume"
 TEMPLATE_PATH = RESUME_DIR / "template.docx"
 CONTENT_PATH = RESUME_DIR / "content.txt"
-OUTPUT_PATH = RESUME_DIR / "Richard.docx"
+OUTPUT_PATH = RESUME_DIR / "Kevin Grant.docx"
 
 
 def parse_bold_segments(s: str) -> list[tuple[bool, str]]:
@@ -115,7 +115,7 @@ def parse_content(text: str) -> dict:
   summary = " ".join(summary.split())
 
   experiences = []
-  for n in range(1, 4):
+  for n in range(1, 5):
     exp_match = re.search(
       rf"## Exp{n}\s*(.*?)(?=\n## |\Z)", text, re.DOTALL | re.IGNORECASE
     )
@@ -185,7 +185,7 @@ def build_resume() -> None:
     find_paragraph(doc, "{{ summary }}"), "{{ summary }}", data["summary"]
   )
 
-  exp_keys = ["exp1", "exp2", "exp3"]
+  exp_keys = ["exp1", "exp2", "exp3", "exp4"]
   for i, key in enumerate(exp_keys):
     bullets = data["experiences"][i] if i < len(data["experiences"]) else []
     b1 = bullets[0] if bullets else ""
