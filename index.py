@@ -12,7 +12,7 @@ from docx.text.paragraph import Paragraph
 RESUME_DIR = Path(__file__).resolve().parent / "resume"
 TEMPLATE_PATH = RESUME_DIR / "template.docx"
 CONTENT_PATH = RESUME_DIR / "content.txt"
-OUTPUT_PATH = RESUME_DIR / "justin.docx"
+OUTPUT_PATH = RESUME_DIR / "Richard.docx"
 
 
 def parse_bold_segments(s: str) -> list[tuple[bool, str]]:
@@ -120,7 +120,7 @@ def parse_content(text: str) -> dict:
       rf"## Exp{n}\s*(.*?)(?=\n## |\Z)", text, re.DOTALL | re.IGNORECASE
     )
     chunk = exp_match.group(1).strip() if exp_match else ""
-    experiences.append(_parse_experience_chunk(chunk))
+    experiences.append(_parse_bullets(chunk))
 
   tech_match = re.search(r"## Skills\s*(.*)\Z", text, re.DOTALL | re.IGNORECASE)
   tech_raw = tech_match.group(1).strip() if tech_match else ""
@@ -133,28 +133,13 @@ def parse_content(text: str) -> dict:
   return {"summary": summary, "experiences": experiences, "tech_lines": tech_lines}
 
 
-def _parse_experience_chunk(chunk: str) -> dict:
-  chunk = chunk.strip()
-
-  brief_lines = []
-  bullet_lines = []
-  for line in chunk.splitlines():
+def _parse_bullets(chunk: str) -> list[str]:
+  bullets = []
+  for line in chunk.strip().splitlines():
     stripped = line.strip()
     if stripped.startswith("- "):
-      bullet_lines.append(stripped[2:].strip())
-    elif stripped:
-      brief_lines.append(stripped)
-
-  brief = " ".join(brief_lines)
-  sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+", brief) if s.strip()]
-  first_sentence = sentences[0] if sentences else brief
-  second_sentence = sentences[1] if len(sentences) > 1 else ""
-
-  return {
-    "first_sentence": first_sentence,
-    "second_sentence": second_sentence,
-    "bullets": bullet_lines,
-  }
+      bullets.append(stripped[2:].strip())
+  return bullets
 
 
 def iter_all_paragraphs(doc: Document):
@@ -189,21 +174,6 @@ def insert_extra_list_items_after(bullet2_paragraph, extra_texts: list[str]) -> 
     ref = new_el
 
 
-def _experience_slots(exp: dict) -> tuple[str, str, str, list[str]]:
-  bullets = exp.get("bullets", [])
-  second_sentence = exp.get("second_sentence", "")
-
-  slot_b1 = bullets[0] if bullets else ""
-  if second_sentence:
-    slot_b2 = second_sentence
-    extras = bullets[1:]
-  else:
-    slot_b2 = bullets[1] if len(bullets) > 1 else ""
-    extras = bullets[2:]
-
-  return exp.get("first_sentence", ""), slot_b1, slot_b2, extras
-
-
 def build_resume() -> None:
   raw = CONTENT_PATH.read_text(encoding="utf-8")
   data = parse_content(raw)
@@ -217,16 +187,16 @@ def build_resume() -> None:
 
   exp_keys = ["exp1", "exp2", "exp3"]
   for i, key in enumerate(exp_keys):
-    exp = data["experiences"][i] if i < len(data["experiences"]) else {}
-    brief, b1, b2, extras = _experience_slots(exp)
+    bullets = data["experiences"][i] if i < len(data["experiences"]) else []
+    b1 = bullets[0] if bullets else ""
+    b2 = bullets[1] if len(bullets) > 1 else ""
+    extras = bullets[2:]
 
-    p_brief = find_paragraph(doc, f"{{{{ {key}-brief }}}}")
-    p_b1 = find_paragraph(doc, f"{{{{ {key}-bullet1 }}}}")
-    p_b2 = find_paragraph(doc, f"{{{{ {key}-bullet2 }}}}")
+    p_b1 = find_paragraph(doc, f"{{{{ {key}_bullet1 }}}}")
+    p_b2 = find_paragraph(doc, f"{{{{ {key}_bullet2 }}}}")
 
-    replace_placeholder_formatted(p_brief, f"{{{{ {key}-brief }}}}", brief)
-    replace_placeholder_formatted(p_b1, f"{{{{ {key}-bullet1 }}}}", b1)
-    replace_placeholder_formatted(p_b2, f"{{{{ {key}-bullet2 }}}}", b2)
+    replace_placeholder_formatted(p_b1, f"{{{{ {key}_bullet1 }}}}", b1)
+    replace_placeholder_formatted(p_b2, f"{{{{ {key}_bullet2 }}}}", b2)
 
     if p_b2 and extras:
       insert_extra_list_items_after(p_b2, extras)
@@ -235,11 +205,11 @@ def build_resume() -> None:
   skill1 = tech[0] if len(tech) > 0 else ""
   skill2 = tech[1] if len(tech) > 1 else ""
 
-  p_s1 = find_paragraph(doc, "{{ skill-cat1 }}")
-  p_s2 = find_paragraph(doc, "{{ skill-cat2 }}")
+  p_s1 = find_paragraph(doc, "{{ skill_cat1 }}")
+  p_s2 = find_paragraph(doc, "{{ skill_cat2 }}")
 
-  replace_placeholder_formatted(p_s1, "{{ skill-cat1 }}", skill1)
-  replace_placeholder_formatted(p_s2, "{{ skill-cat2 }}", skill2)
+  replace_placeholder_formatted(p_s1, "{{ skill_cat1 }}", skill1)
+  replace_placeholder_formatted(p_s2, "{{ skill_cat2 }}", skill2)
 
   extra_skills = tech[2:] if len(tech) > 2 else []
   if p_s2 and extra_skills:

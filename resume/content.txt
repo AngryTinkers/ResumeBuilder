@@ -1,47 +1,45 @@
 ## Summary
 
-Senior Full Stack Engineer with 10+ years of experience building scalable, high-performance web applications across retail, fintech, and design tech industries. Deep expertise in **React**, **C#**, and **ASP.NET Core**, with a strong track record of delivering end-to-end solutions from database architecture to responsive UI. Passionate about clean code, developer experience, and leveraging modern AI tooling to accelerate delivery and quality.
+Senior data platform engineer with over twelve years building distributed processing systems for grocery marketplace, live-streaming, and large-scale commerce environments where correctness and freshness both matter. Comfortable owning a pipeline from schema negotiation with upstream producers through job tuning, backfill strategy, and the on-call rotation that follows a bad deploy. Years of running consumer-facing systems under seasonal peaks and live-event surges have made throughput ceilings, late-arriving data, and reprocessing cost explicit design inputs rather than problems discovered in production. Invests steadily in the engineers nearby, guiding teams through functional refactors and streaming migrations while leaving behind review standards and testing habits that outlast individual projects.
 
 ## Exp1
 
-Spearheaded full stack development on an AI-powered product recommendation and inventory intelligence platform, collaborating cross-functionally to modernize legacy workflows and improve internal tooling at scale.
-
-- Architected a scalable **React** frontend with **TypeScript** and **Redux Toolkit**, significantly improving state management consistency and component reusability across the platform.
-- Built and maintained robust **ASP.NET Core** Web API services integrated with **Azure SQL Database** and **Azure Cosmos DB** to support high-throughput retail data pipelines.
-- Deployed and managed microservices on **Azure Kubernetes Service (AKS)** and **Azure Functions**, streamlining containerized workloads and significantly reducing infrastructure overhead.
-- Established a **GitHub Actions** CI/CD pipeline with automated testing gates, containerizing services via **Docker** and ensuring consistent deployments across staging and production environments.
-- Integrated **Azure Service Bus** for event-driven communication between microservices, decoupling AI inference jobs from the core transactional system to boost resilience.
-- Adopted **Cursor AI** as a primary coding assistant throughout daily development, significantly accelerating feature delivery, code review cycles, and boilerplate generation across the stack.
-- Instrumented services with **Prometheus** and **Grafana** dashboards to provide real-time observability into API latency, error rates, and resource utilization across the platform.
+- Consolidated fragmented catalog ingestion into a typed **Scala** service using **Cats Effect** for resource-safe concurrency, standardizing **sbt** build configuration so new retailer integrations shipped without bespoke scaffolding.
+- Rebuilt store availability updates as **Apache Kafka** consumers with schema contracts enforced through **Avro**, reducing stale inventory records surfaced to customers during cart building and substitutions.
+- Modeled basket behavior aggregates as **Apache Spark** batch jobs writing partitioned **Delta Lake** tables, replacing nightly full rewrites that delayed recommendation refreshes past the morning shopping peak.
+- Exposed retail media campaign reporting through **http4s** endpoints with **Circe** codecs, giving brand partners consistent sponsored-product metrics instead of analyst-generated database extracts.
+- Tuned high-write order and substitution queries in **PostgreSQL** accessed via **Doobie**, adding covering indexes that cut slow-query alerts during peak delivery scheduling windows.
+- Containerized batch-assignment workers with **Docker**, deploying via **Helm** on **Kubernetes** with cluster resources codified in **Terraform** to make shopper fulfillment rollouts repeatable.
+- Instrumented delivery-timing jobs with **OpenTelemetry** spans and **Datadog** dashboards, letting on-call engineers pinpoint which upstream retailer feed stalled instead of replaying entire pipeline runs.
+- Established data contract review standards, enforcing **Scalafix** rules and **Scalafmt** formatting inside **GitHub Actions** so unsafe partial functions and silent schema drift surfaced before merge.
 
 ## Exp2
 
-Contributed to a customer engagement and document processing platform for financial services clients, building reliable backend services and intuitive front-end interfaces to handle sensitive data workflows at scale.
-
-- Designed and optimized complex queries and stored procedures in **PostgreSQL**, significantly reducing report generation time for high-volume customer data pipelines.
-- Developed reusable **React** component libraries with **React Hook Form** and **Material UI**, substantially cutting down UI development time across multiple client-facing portals.
-- Built RESTful APIs using **ASP.NET Core** and **Entity Framework Core**, enabling seamless data exchange between the frontend and relational backend systems.
-- Implemented a **RabbitMQ**-based messaging layer to handle asynchronous document processing jobs, significantly improving throughput and decoupling critical workflow stages.
-- Wrote comprehensive unit and integration tests using **xUnit** and **Moq**, maintaining high code coverage and catching regressions early across backend service layers.
-- Containerized applications with **Docker** and configured **Jenkins** pipelines for automated builds and deployments, standardizing the release process across multiple environments.
-- Collaborated on migrating legacy on-premise services to **AWS EC2** and **AWS Lambda**, significantly reducing operational costs and improving deployment flexibility for backend workloads.
+- Scaled real-time chat fanout for large live events using **Akka** actor supervision with **Akka Streams** backpressure, sustaining message delivery when concurrent viewer counts spiked unexpectedly.
+- Enriched AutoMod decisions through **Kafka Streams** topologies joining live chat events against channel history stored in **Apache Cassandra**, reducing repeat offenders slipping past human moderators.
+- Hardened subscription and Bits event handling with idempotency keys persisted in **Amazon DynamoDB**, backed by **Amazon SQS** retries that eliminated duplicate creator earnings entries during payout reconciliation.
+- Powered channel discovery ranking from viewer engagement features computed in **Apache Flink**, serving results through a **Scala** query layer that kept recommendations current as streams started and ended.
+- Consolidated Creator Dashboard data access behind a **GraphQL** schema served by **Caliban**, replacing chatty request patterns that slowed Stream Manager panel loads during heavy broadcast hours.
+- Verified streaming aggregation correctness using property-based tests in **ScalaCheck** alongside **ScalaTest** suites, exposing windowing defects on late-arriving chat events before major community events.
+- Directed incident response during live-event degradations, authoring **Prometheus** alert rules and **Grafana** dashboards with **PagerDuty** routing that shortened detection of chat backlog buildup.
+- Mentored engineers migrating blocking **Java** moderation code into referentially transparent **Scala** effects, running pairing sessions that left the codebase approachable for newcomers unfamiliar with functional patterns.
 
 ## Exp3
 
-Worked on the core editor and collaboration features of a fast-growing design platform, focusing on performance-critical React components and building the foundation for real-time multi-user experiences.
-
-- Delivered highly interactive **React** and **JavaScript (ES6+)** UI components for the canvas editor, significantly enhancing rendering performance and responsiveness across devices.
-- Integrated **AWS RDS (PostgreSQL)** as the relational data store for user asset metadata, working closely with backend teams to design efficient schema structures supporting rapid feature growth.
-- Contributed to a **GraphQL** API layer consumed by **React** clients, streamlining data fetching patterns and substantially reducing over-fetching on asset-heavy editor views.
-- Implemented end-to-end and snapshot testing suites using **Jest** and **Cypress**, significantly increasing confidence in UI regressions during a period of rapid product iteration.
-- Partnered with backend engineers to integrate **AWS SQS** for queuing asynchronous export and rendering jobs, improving reliability of background processing for design file generation.
-- Set up **Datadog** monitoring and alerting on key frontend performance metrics, providing the team with meaningful observability into real-user experience and error trends.
-- Participated in migrating build tooling to **Webpack** with **Babel**, alongside adopting **GitLab CI** for automated linting, testing, and deployment workflows across the frontend codebase.
+- Developed seller catalog ingestion handlers in **Scala** parsing bulk feeds staged in **Amazon S3**, applying attribute updates to **MySQL** without blocking upstream publishing schedules.
+- Implemented near-real-time risk scoring on marketplace orders with **Amazon Kinesis** streams consumed by **Scala** workers, flagging suspicious seller activity earlier in the order lifecycle.
+- Reconciled returns and refund exceptions through **Apache Spark** jobs reading fulfillment history from **Apache Hive**, orchestrated by **Jenkins** so unresolved cases reached customer service teams daily.
+- Centralized delivery-promise calculation in a **Scala** service reading fulfillment capacity from **Amazon Aurora**, replacing divergent estimates that checkout and product detail pages computed independently.
+- Coordinated release readiness with fulfillment and customer service partners, expanding **ScalaTest** and **Testcontainers** regression coverage across returns paths before high-volume holiday order periods.
 
 ## Skills
 
-**Languages:** C#, HTML, CSS, SCSS, JavaScript, ES6, TypeScript, Python, SQL, JSON
-**Frontend:** React, React Native, Next.js, Bootstrap, Tailwind CSS, MUI, JQuery, MapBox, Chart.js, D3.js, React Query, React Hooks, Redux, Zustand, Storybook
-**Backend:** .Net, Windows Forms, ADO.NET, Entity Framework, Dapper, Node.js, Express, MSSQL, PostgreSQL, MongoDB, Snowflake, Kafka, RabbitMQ, Redis, GraphQL, gRPC, WebSockets
-**Testing & Building Tools:** NUnit, xUnit, Moq, Jest, Cypress, Selenium, Playwright, Postman, Swagger, ESLint, Vite, Webpack, Terraform
-**Cloud & DevOps:** Git, AWS, Azure, GCP, Docker, Kubernetes, CI/CD, GitHub Actions, Jenkins, Vercel, Heroku
+**Programming Languages:** Scala, Java, SQL, Python, Bash
+**Frameworks & Libraries:** Akka, Akka Streams, Cats Effect, FS2, ZIO, http4s, Play Framework, Circe, Doobie, Slick, Caliban, GraphQL, Apache Spark, Spark Structured Streaming, Apache Flink, Kafka Streams, Avro, Protocol Buffers, gRPC
+**Build & Package Tools:** sbt, Mill, Maven, Gradle, Coursier
+**Databases:** PostgreSQL, MySQL, Amazon Aurora, Amazon DynamoDB, Apache Cassandra, Apache Hive, Delta Lake, Redis, Elasticsearch
+**Cloud Platforms:** AWS, Amazon EC2, Amazon S3, Amazon EMR, Amazon Kinesis, Amazon SQS, Amazon SNS, AWS Glue, Amazon EKS, Amazon Athena
+**Infrastructure & Containers:** Docker, Kubernetes, Helm, Terraform, Apache Kafka, Apache Airflow, Apache ZooKeeper, NGINX
+**CI/CD & DevOps:** Jenkins, GitHub Actions, Spinnaker, Argo CD, Git
+**Testing & Code Quality:** ScalaTest, Specs2, ScalaCheck, MUnit, Testcontainers, WireMock, Gatling, Scalafmt, Scalafix, WartRemover, SonarQube
+**Monitoring & Observability:** Datadog, Prometheus, Grafana, OpenTelemetry, Kamon, Splunk, Amazon CloudWatch, Sentry, PagerDuty
