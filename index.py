@@ -12,7 +12,7 @@ from docx.text.paragraph import Paragraph
 RESUME_DIR = Path(__file__).resolve().parent / "resume"
 TEMPLATE_PATH = RESUME_DIR / "template.docx"
 CONTENT_PATH = RESUME_DIR / "content.txt"
-OUTPUT_PATH = RESUME_DIR / "Kevin Grant.docx"
+OUTPUT_PATH = RESUME_DIR / "Anthony.docx"
 
 
 def parse_bold_segments(s: str) -> list[tuple[bool, str]]:
@@ -116,11 +116,18 @@ def parse_content(text: str) -> dict:
 
   experiences = []
   for n in range(1, 5):
+    # Heading carries the job title, e.g.
+    # ``## Exp1 - Senior Software Engineer, CircleCI | 2021.3 - Present``.
+    # Only the title is used; company and dates live in the template.
     exp_match = re.search(
-      rf"## Exp{n}\s*(.*?)(?=\n## |\Z)", text, re.DOTALL | re.IGNORECASE
+      rf"## Exp{n}[ \t]*[-–—]?[ \t]*(.*?)\n(.*?)(?=\n## |\Z)",
+      text,
+      re.DOTALL | re.IGNORECASE,
     )
-    chunk = exp_match.group(1).strip() if exp_match else ""
-    experiences.append(_parse_bullets(chunk))
+    heading = exp_match.group(1).strip() if exp_match else ""
+    title = re.split(r"[,|]", heading)[0].strip()
+    chunk = exp_match.group(2).strip() if exp_match else ""
+    experiences.append({"title": title, "bullets": _parse_bullets(chunk)})
 
   tech_match = re.search(r"## Skills\s*(.*)\Z", text, re.DOTALL | re.IGNORECASE)
   tech_raw = tech_match.group(1).strip() if tech_match else ""
@@ -187,10 +194,16 @@ def build_resume() -> None:
 
   exp_keys = ["exp1", "exp2", "exp3", "exp4"]
   for i, key in enumerate(exp_keys):
-    bullets = data["experiences"][i] if i < len(data["experiences"]) else []
+    exp = data["experiences"][i] if i < len(data["experiences"]) else {}
+    bullets = exp.get("bullets", [])
     b1 = bullets[0] if bullets else ""
     b2 = bullets[1] if len(bullets) > 1 else ""
     extras = bullets[2:]
+
+    title_ph = f"{{{{ title{i + 1} }}}}"
+    replace_placeholder_formatted(
+      find_paragraph(doc, title_ph), title_ph, exp.get("title", "")
+    )
 
     p_b1 = find_paragraph(doc, f"{{{{ {key}_bullet1 }}}}")
     p_b2 = find_paragraph(doc, f"{{{{ {key}_bullet2 }}}}")

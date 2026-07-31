@@ -1,62 +1,56 @@
 ## Summary
 
-Senior software engineer with over a decade of experience building and operating production systems across aviation, commerce, and connected-device organizations, progressing from early delivery work to senior ownership of mission-critical services. Approaches problems structurally — tracing failures to queue semantics, data contracts, or access patterns rather than patching symptoms — and treats latency, correctness, and operational cost as a single design decision rather than competing afterthoughts. Partners closely with product, operations, and external stakeholders to turn ambiguous requirements into systems other engineers can safely extend, and invests consistently in design review, mentorship, and production readiness. Most effective on teams where reliability is non-negotiable and the hardest work is deciding what should exist before any of it gets written.
+Senior software engineer with over 10 years of experience building and operating production platforms used by engineering, product, and operations teams at scale. Brings a systems-level perspective to every problem, tracing failures to their architectural root cause and weighing trade-offs between consistency, latency, cost, and long-term maintainability before committing a team to a direction. Known for raising the technical bar of the teams around them through mentorship, rigorous code review, and clear written design reasoning that keeps distributed contributors aligned. Comfortable owning delivery end to end, from data model and service boundaries through interface behavior, release readiness, and on-call response.
 
-## Exp1 — Senior Software Engineer, ForeFlight (May 2022 – June 2026)
+## Exp1 - Senior Software Engineer, CircleCI | 2021.3 – Present
 
-- Engineered **Go** services on **Kubernetes** that stream live flight positions to operations dashboards, replacing polling and giving dispatchers current aircraft state without manual refreshes.
-- Rebuilt telemetry ingestion on **Kafka** with idempotent **Go** consumers keyed by flight identifier, preventing duplicate position events from corrupting arrival-time estimates during broker retries and replays.
-- Deployed flight-time and fuel prediction models behind a **Python** **FastAPI** service backed by **PostgreSQL** feature tables, letting planners see estimates alongside filed routes.
-- Modeled route-risk and weather-impact scoring in **Python** using **pandas** and **PostGIS** geometry queries, surfacing hazardous route segments that previously required manual chart comparison.
-- Designed cross-device sync with **Protocol Buffers** payloads and **SQLite** device caches, resolving conflicting edits deterministically so pilots kept usable flight data through cabin connectivity loss.
-- Instrumented anomaly-detection services with **OpenTelemetry** traces, **Prometheus** metrics, and **Grafana** alerting, shortening the time between abnormal flight behavior and an operator seeing it.
-- Profiled runway and aircraft-performance endpoints with **pprof**, trimming allocations in **Go** handlers and tightening **Gin** middleware so heavy performance requests stopped stalling preflight review.
-- Established production-readiness reviews covering **Terraform** environment parity and **Kubernetes** rollout gates, giving mission-critical aviation releases a consistent bar before dispatch traffic reached them.
+- Architected pipeline orchestration services in **C#** and **ASP.NET Core**, persisting workflow dependency graphs in **PostgreSQL**, so multi-job builds resumed correctly after partial failures rather than restarting entirely.
+- Shipped a **React 18** and **TypeScript** insights dashboard backed by **TanStack Query** caching, letting teams spot slow workflows and flaky jobs without exporting raw build data.
+- Reworked queue management for hosted compute using **Redis** sorted sets and **.NET** background workers, ending head-of-line blocking that delayed short jobs behind long-running test suites.
+- Streamed live job output to browsers through **SignalR** WebSocket hubs and a **Redis** backplane, replacing polling that left engineers waiting minutes to see failing test steps.
+- Implemented OIDC token exchange and context-scoped secrets in **ASP.NET Core** middleware mapped to **AWS IAM** roles, removing long-lived cloud keys from customer pipeline configuration.
+- Instrumented runner and executor services with **OpenTelemetry** traces surfaced in **Datadog**, removing guesswork when isolating whether queue wait, image pull, or test execution caused slowdowns.
+- Mentored backend engineers on **xUnit** test design and **SonarQube** quality gates during pull-request reviews, ending recurring null-handling defects in configuration validation code paths.
+- Traced repeated executor exhaustion using **Prometheus** metrics and **Grafana** dashboards, then added **Kubernetes** eviction handling that stopped orphaned containers from holding resource-class capacity.
 
-## Exp2 — Senior Software Engineer, RevolutionParts (June 2020 – May 2022)
+## Exp2 - Senior Software Engineer, Abstract | 2019.4 – 2021.1
 
-- Developed wholesale ordering services in **Java** with **Spring Boot**, modeling the order lifecycle from quote through fulfillment so dealership buyers tracked status without calling support.
-- Tuned vehicle-fitment search relevance in **Elasticsearch**, adding year-make-model analyzers and **Java** query builders that stopped incompatible parts from ranking above exact fitment matches.
-- Automated demand forecasting and obsolete-parts scoring with **Python** and **pandas** over **MySQL** sales history, giving sellers a ranked list of aging inventory to discount.
-- Synchronized inventory and pricing to external marketplaces through **RabbitMQ** work queues with **Java** retry handlers, cutting oversold listings caused by delayed dealership stock updates.
-- Redesigned catalog schema and composite indexes in **MySQL**, replacing **Hibernate** N+1 access patterns with batched fetches so parts pages stayed responsive under wholesale-season load.
-- Introduced a **Redis** cache for pricing recommendations and personalized product results, keeping repeated storefront requests off **Spring Boot** service instances during promotional traffic spikes.
-- Expanded regression coverage with **JUnit** suites and **Testcontainers**-backed **MySQL** fixtures wired into **Jenkins**, catching checkout and fitment defects before they reached dealership storefronts.
-- Mentored newer engineers through **Java** service design reviews and **SonarQube** quality gates, converting inconsistent commerce-service patterns into shared conventions the team applied to later integrations.
+- Developed branch and commit graph services in **C#** with **Entity Framework Core**, storing design file lineage in **PostgreSQL** so parallel edits merged without overwriting teammates' latest work.
+- Rebuilt the developer handoff inspection view with **React**, **Redux Toolkit**, and **D3.js** overlays, giving engineers exact spacing, color, and **CSS3** values without opening source design files.
+- Offloaded large design file uploads to **Amazon S3** multipart transfers coordinated by **ASP.NET Core** endpoints, freeing application servers that previously stalled while buffering full master files.
+- Decoupled review-request notifications using **MediatR** handlers publishing to **RabbitMQ**, so comment and approval fanout no longer blocked commit APIs during heavy merge activity.
+- Migrated the web client from **Webpack** to **Vite** and converted class components into typed **React** hooks, shortening local rebuild waits that discouraged frequent interface iteration.
+- Enforced project and library permissions through policy-based authorization in **ASP.NET Core** backed by **Microsoft SQL Server** role tables, blocking contributors from merging branches outside assigned design projects.
+- Standardized shared interface primitives in a **Storybook** library with **TypeScript** prop contracts, aligning designers and engineers on one source of truth for review-workflow screens.
+- Cached rendered artboard thumbnails in **Redis** and served them through **NGINX**, removing repeated re-rendering that made visual history browsing sluggish on long-lived design branches.
 
-## Exp3 — Software Engineer, Sandoval Agency (October 2019 – June 2020)
+## Exp3 - Software Engineer, Uber Freight | 2017.4 – 2019.4
 
-- Launched CMS page-building templates in **Django**, backing reusable campaign components with **PostgreSQL** content models so marketers published landing pages without engineering involvement.
-- Integrated lead-capture forms with client CRM and email platforms using **Python** clients and **Celery** retry tasks, ending silent lead loss when partner endpoints timed out.
-- Migrated digital assets onto **Amazon S3** with **Pillow** derivative generation, replacing hand-resized campaign images and keeping asset variants consistent across responsive client websites.
-- Containerized agency project stacks with **Docker Compose** and **NGINX** front ends, removing environment drift that had delayed campaign handoffs between developers and client review sites.
-- Coordinated content approval and publishing schedules across account, design, and engineering teams, replacing ad-hoc launch requests with predictable release windows automated through **Git** branching and **Jenkins** deploys.
+- Launched carrier load-matching APIs in **C#** and **ASP.NET Core** reading lane and capacity records from **PostgreSQL**, replacing spreadsheet-driven dispatch with instant booking against available freight.
+- Ingested driver location and tracking events through **Apache Kafka** consumers writing into **Elasticsearch**, letting operations search shipment history and current position without touching the transactional store.
+- Composed upfront pricing read models with **Dapper** queries over **Microsoft SQL Server** rate snapshots, keeping quote responses fast while recalculation ran on a separate scheduled path.
+- Assembled an exception-management console with **React** and **TypeScript** against **OpenAPI**-generated clients, ranking late loads for dispatchers by delivery risk instead of raw scheduled arrival.
+- Automated proof-of-delivery handling with **Hangfire** background jobs that validated scans, stored originals in **Amazon S3**, and released settlement records once documents passed verification checks.
+- Led on-call response to a matching outage by replaying **Apache Kafka** offsets and adding **Polly** retry policies in **.NET** clients, preventing repeated load-assignment loss during downstream timeouts.
 
-## Exp4 — Software Engineer, Google (August 2015 – October 2019)
+## Exp4 - Software Engineer, Apple | 2014.9 – 2017.3
 
-- Constructed batch pipelines in **Java** on **Apache Beam**, merging warehouse, logistics, and support feeds into one device record that operations teams could trace end to end.
-- Structured vendor-performance and device-quality reporting tables in **BigQuery**, replacing per-team spreadsheet extracts with shared **SQL** models product managers queried directly for shipment and returns trends.
-- Validated inbound vendor and shipment records through **Python** check suites orchestrated by **Apache Airflow**, quarantining malformed rows before they distorted inventory dashboards used by planners.
-- Consolidated returns and replacement lookups into a **Java** service over **Bigtable**, giving support agents a single device history instead of querying separate commerce and logistics systems.
-- Replaced nightly file-based vendor exports with **Google Cloud Dataflow** jobs writing partitioned **BigQuery** tables, shrinking the gap between shipment activity and reported inventory positions.
-- Standardized schema-change contracts and on-call runbooks across **Apache Beam** pipelines and **Google Cloud Monitoring** alerts, keeping upstream field changes from silently breaking downstream device reporting.
+- Engineered app submission and entitlement validation services in **C#** on **.NET**, storing review state in **Microsoft SQL Server** so builds failing signing checks were rejected before reviewer queues.
+- Constructed developer portal screens for beta testing feedback using **React** and **JavaScript**, consolidating tester crash notes and build status that teams previously tracked across separate internal tools.
+- Reconciled subscription billing state with idempotent transaction handling in **.NET** over **Microsoft SQL Server**, eliminating duplicate charges when renewal callbacks retried across regional service endpoints.
+- Resolved cross-device sync conflicts by pairing **Objective-C** and **Swift** clients with version vectors persisted in **PostgreSQL**, keeping account preferences consistent after devices reconnected following offline edits.
+- Throttled abusive purchase attempts using **Redis** counters behind **ASP.NET Core** rate-limiting filters, cutting automated account-testing traffic before it reached payment authorization services.
+- Indexed catalog metadata into **Elasticsearch** through **C#** ingestion workers, improving storefront result freshness after publishers changed titles, pricing tiers, and localized descriptions.
+- Coordinated release readiness with QA and services teams by wiring **Jenkins** pipelines that executed **NUnit** suites and deployed **Docker**-packaged staging builds before each ecosystem-wide rollout.
 
 ## Skills
 
-**Programming Languages:** Go, Java, Python, SQL, Bash
-
-**Frameworks & Libraries:** Spring Boot, Hibernate, Gin, gRPC, Protocol Buffers, FastAPI, Django, Celery, SQLAlchemy, pandas, NumPy, scikit-learn, Apache Beam, Pillow
-
-**Build & Package Tools:** Maven, Gradle, Go Modules, pip, Poetry, Make
-
-**Databases:** PostgreSQL, PostGIS, MySQL, SQLite, Redis, Elasticsearch, BigQuery, Bigtable
-
-**Cloud Platforms:** Amazon Web Services, Amazon EC2, Amazon S3, Amazon RDS, Google Cloud Platform, Google Cloud Dataflow, Google Cloud Storage
-
-**Infrastructure & Containers:** Docker, Docker Compose, Kubernetes, Helm, Terraform, NGINX, Apache Kafka, RabbitMQ
-
-**CI/CD & DevOps:** Jenkins, GitHub Actions, Git, Apache Airflow
-
-**Testing & Code Quality:** JUnit, Mockito, pytest, Testcontainers, Go testing, golangci-lint, SonarQube, Black
-
-**Monitoring & Observability:** Prometheus, Grafana, OpenTelemetry, Jaeger, pprof, Google Cloud Monitoring
+**Programming Languages:** C#, TypeScript, JavaScript (ES2022), SQL, Python, Go, Swift, Objective-C, HTML5, CSS3, Sass
+**Frameworks & Libraries:** .NET 8, ASP.NET Core, Entity Framework Core, Dapper, SignalR, MediatR, FluentValidation, AutoMapper, Hangfire, Polly, Serilog, React 18, Redux Toolkit, TanStack Query, React Router, React Hook Form, Next.js, Node.js, Express.js, Tailwind CSS, Material UI, Storybook, D3.js, gRPC, GraphQL, OpenAPI/Swagger
+**Build & Package Tools:** MSBuild, .NET CLI, NuGet, npm, Yarn, pnpm, Vite, Webpack, esbuild, Babel
+**Databases:** Microsoft SQL Server, PostgreSQL, MySQL, Redis, MongoDB, Elasticsearch, Amazon DynamoDB, Azure Cosmos DB
+**Cloud Platforms:** AWS, Amazon EC2, Amazon S3, Amazon RDS, AWS Lambda, Amazon EKS, AWS IAM, Microsoft Azure, Azure App Service, Azure Functions, Azure Blob Storage, Azure Service Bus
+**Infrastructure & Containers:** Docker, Kubernetes, Helm, Terraform, NGINX, Linux, Apache Kafka, RabbitMQ
+**CI/CD & DevOps:** CircleCI, GitHub Actions, Jenkins, Azure DevOps Pipelines, Argo CD, Git, GitHub, Bitbucket, Artifactory
+**Testing & Code Quality:** xUnit, NUnit, Moq, FluentAssertions, Jest, React Testing Library, Cypress, Playwright, Selenium, k6, SonarQube, ESLint, Prettier, StyleCop
+**Monitoring & Observability:** Datadog, Prometheus, Grafana, OpenTelemetry, Application Insights, Sentry, Splunk, Amazon CloudWatch
